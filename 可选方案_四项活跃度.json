@@ -1,0 +1,473 @@
+{
+  "version": "1.2.0",
+  "engine": {
+    "tank": {
+      "radius_m": 1.0,
+      "water_depth_m": 0.9
+    },
+    "body_length_m": null,
+    "point_types_position": [
+      "observed",
+      "interpolated"
+    ],
+    "point_types_kinematics": [
+      "observed",
+      "interpolated"
+    ],
+    "max_gap_factor": 3.0,
+    "speed_cap_m_s": 1.5,
+    "exclude_steps_over_cap": true,
+    "v_move_m_s": 0.0175,
+    "v_fast_m_s": 0.2,
+    "v_freeze_m_s": 0.0175,
+    "freeze_min_s": 1.0,
+    "wall_zone_width_m": 0.1,
+    "center_zone_radius_frac": 0.5,
+    "grid_cell_m": 0.1,
+    "corrdim": {
+      "r_min_m": 0.01,
+      "r_max_m": 0.3,
+      "n_r": 20,
+      "theiler_s": 1.0,
+      "max_points": 800,
+      "min_points": 200
+    },
+    "homebase": {
+      "cell_m": 0.2,
+      "stop_speed_m_s": 0.0175,
+      "stop_min_s": 1.0
+    },
+    "social": {
+      "proximity_m": 0.1,
+      "proximity_bl": 1.0,
+      "min_fish_centroid": 3,
+      "nn_max_gap_frames": 2
+    },
+    "min_tracked_time_s": 300,
+    "min_fps_fine_kinematics": 10
+  },
+  "input": {
+    "format": "自动识别",
+    "time_unit": "自动",
+    "length_unit": "m"
+  },
+  "quality": {
+    "min_score_duration_s": 30.0,
+    "min_score_coverage_pct": 50.0,
+    "min_score_steps": 20,
+    "max_bad_step_pct": 10.0,
+    "min_available_weight_pct": 70.0
+  },
+  "scoring": {
+    "name": "旧版四项纯活跃度方案",
+    "calibrated": false,
+    "rules": [
+      {
+        "id": 1,
+        "weight": 0,
+        "direction": "正向",
+        "low": null,
+        "high": null
+      },
+      {
+        "id": 2,
+        "weight": 0,
+        "direction": "正向",
+        "low": null,
+        "high": null
+      },
+      {
+        "id": 3,
+        "weight": 0,
+        "direction": "正向",
+        "low": null,
+        "high": null
+      },
+      {
+        "id": 4,
+        "weight": 0,
+        "direction": "正向",
+        "low": null,
+        "high": null
+      },
+      {
+        "id": 5,
+        "weight": 0,
+        "direction": "正向",
+        "low": null,
+        "high": null
+      },
+      {
+        "id": 6,
+        "weight": 0,
+        "direction": "正向",
+        "low": null,
+        "high": null
+      },
+      {
+        "id": 7,
+        "weight": 0,
+        "direction": "正向",
+        "low": null,
+        "high": null
+      },
+      {
+        "id": 8,
+        "weight": 15.0,
+        "direction": "反向",
+        "low": 0,
+        "high": 100.0
+      },
+      {
+        "id": 9,
+        "weight": 0,
+        "direction": "正向",
+        "low": null,
+        "high": null
+      },
+      {
+        "id": 10,
+        "weight": 0,
+        "direction": "正向",
+        "low": null,
+        "high": null
+      },
+      {
+        "id": 11,
+        "weight": 0,
+        "direction": "正向",
+        "low": null,
+        "high": null
+      },
+      {
+        "id": 12,
+        "weight": 0,
+        "direction": "正向",
+        "low": null,
+        "high": null
+      },
+      {
+        "id": 13,
+        "weight": 0,
+        "direction": "正向",
+        "low": null,
+        "high": null
+      },
+      {
+        "id": 14,
+        "weight": 0,
+        "direction": "正向",
+        "low": null,
+        "high": null
+      },
+      {
+        "id": 15,
+        "weight": 0,
+        "direction": "正向",
+        "low": null,
+        "high": null
+      },
+      {
+        "id": 16,
+        "weight": 0,
+        "direction": "正向",
+        "low": null,
+        "high": null
+      },
+      {
+        "id": 17,
+        "weight": 40.0,
+        "direction": "正向",
+        "low": 0,
+        "high": 100.0
+      },
+      {
+        "id": 18,
+        "weight": 35.0,
+        "direction": "正向",
+        "low": 0,
+        "high": 0.2
+      },
+      {
+        "id": 19,
+        "weight": 0,
+        "direction": "正向",
+        "low": null,
+        "high": null
+      },
+      {
+        "id": 20,
+        "weight": 0,
+        "direction": "正向",
+        "low": null,
+        "high": null
+      },
+      {
+        "id": 21,
+        "weight": 0,
+        "direction": "正向",
+        "low": null,
+        "high": null
+      },
+      {
+        "id": 22,
+        "weight": 0,
+        "direction": "正向",
+        "low": null,
+        "high": null
+      },
+      {
+        "id": 23,
+        "weight": 0,
+        "direction": "正向",
+        "low": null,
+        "high": null
+      },
+      {
+        "id": 24,
+        "weight": 0,
+        "direction": "正向",
+        "low": null,
+        "high": null
+      },
+      {
+        "id": 25,
+        "weight": 0,
+        "direction": "正向",
+        "low": null,
+        "high": null
+      },
+      {
+        "id": 26,
+        "weight": 0,
+        "direction": "正向",
+        "low": null,
+        "high": null
+      },
+      {
+        "id": 27,
+        "weight": 0,
+        "direction": "正向",
+        "low": null,
+        "high": null
+      },
+      {
+        "id": 28,
+        "weight": 0,
+        "direction": "正向",
+        "low": null,
+        "high": null
+      },
+      {
+        "id": 29,
+        "weight": 0,
+        "direction": "正向",
+        "low": null,
+        "high": null
+      },
+      {
+        "id": 30,
+        "weight": 0,
+        "direction": "正向",
+        "low": null,
+        "high": null
+      },
+      {
+        "id": 31,
+        "weight": 0,
+        "direction": "正向",
+        "low": null,
+        "high": null
+      },
+      {
+        "id": 32,
+        "weight": 0,
+        "direction": "正向",
+        "low": null,
+        "high": null
+      },
+      {
+        "id": 33,
+        "weight": 0,
+        "direction": "正向",
+        "low": null,
+        "high": null
+      },
+      {
+        "id": 34,
+        "weight": 0,
+        "direction": "正向",
+        "low": null,
+        "high": null
+      },
+      {
+        "id": 35,
+        "weight": 0,
+        "direction": "正向",
+        "low": null,
+        "high": null
+      },
+      {
+        "id": 36,
+        "weight": 0,
+        "direction": "正向",
+        "low": null,
+        "high": null
+      },
+      {
+        "id": 37,
+        "weight": 0,
+        "direction": "正向",
+        "low": null,
+        "high": null
+      },
+      {
+        "id": 38,
+        "weight": 0,
+        "direction": "正向",
+        "low": null,
+        "high": null
+      },
+      {
+        "id": 39,
+        "weight": 0,
+        "direction": "正向",
+        "low": null,
+        "high": null
+      },
+      {
+        "id": 40,
+        "weight": 0,
+        "direction": "正向",
+        "low": null,
+        "high": null
+      },
+      {
+        "id": 41,
+        "weight": 0,
+        "direction": "正向",
+        "low": null,
+        "high": null
+      },
+      {
+        "id": 42,
+        "weight": 0,
+        "direction": "正向",
+        "low": null,
+        "high": null
+      },
+      {
+        "id": 43,
+        "weight": 0,
+        "direction": "正向",
+        "low": null,
+        "high": null
+      },
+      {
+        "id": 44,
+        "weight": 0,
+        "direction": "正向",
+        "low": null,
+        "high": null
+      },
+      {
+        "id": 45,
+        "weight": 0,
+        "direction": "正向",
+        "low": null,
+        "high": null
+      },
+      {
+        "id": 46,
+        "weight": 0,
+        "direction": "正向",
+        "low": null,
+        "high": null
+      },
+      {
+        "id": 47,
+        "weight": 10.0,
+        "direction": "正向",
+        "low": 0,
+        "high": 100.0
+      },
+      {
+        "id": 48,
+        "weight": 0,
+        "direction": "正向",
+        "low": null,
+        "high": null
+      },
+      {
+        "id": 49,
+        "weight": 0,
+        "direction": "正向",
+        "low": null,
+        "high": null
+      },
+      {
+        "id": 50,
+        "weight": 0,
+        "direction": "正向",
+        "low": null,
+        "high": null
+      },
+      {
+        "id": 51,
+        "weight": 0,
+        "direction": "正向",
+        "low": null,
+        "high": null
+      },
+      {
+        "id": 52,
+        "weight": 0,
+        "direction": "正向",
+        "low": null,
+        "high": null
+      },
+      {
+        "id": 53,
+        "weight": 0,
+        "direction": "正向",
+        "low": null,
+        "high": null
+      },
+      {
+        "id": 54,
+        "weight": 0,
+        "direction": "正向",
+        "low": null,
+        "high": null
+      },
+      {
+        "id": 55,
+        "weight": 0,
+        "direction": "正向",
+        "low": null,
+        "high": null
+      },
+      {
+        "id": 56,
+        "weight": 0,
+        "direction": "正向",
+        "low": null,
+        "high": null
+      },
+      {
+        "id": 57,
+        "weight": 0,
+        "direction": "正向",
+        "low": null,
+        "high": null
+      },
+      {
+        "id": 58,
+        "weight": 0,
+        "direction": "正向",
+        "low": null,
+        "high": null
+      }
+    ]
+  }
+}

@@ -1,0 +1,852 @@
+{
+  "metrics": [
+    {
+      "id": 1,
+      "dimension": "勇敢性\nBoldness",
+      "assay": "避难所 + 开放区水箱（中间隔板带活板门）；在熟悉且有风险的环境中测定",
+      "name": "出避难所潜伏期",
+      "definition": "从打开活板门到个体首次离开避难所的时间。Bevan 等（2018）规定离开避难所后在外停留 >10 s 才算“离开”，300 s 内未离开者记为 300 s",
+      "interpretation": "潜伏期越短 → 越勇敢",
+      "references": "Brown et al., 2005；Bevan et al., 2018；李武新等, 2021",
+      "notes": "未出游个体属于删失数据，需统一记为上限值；综述指出“首次探索新异环境”的潜伏期其实反映探索性，勇敢性应在熟悉环境中测"
+    },
+    {
+      "id": 2,
+      "dimension": "勇敢性\nBoldness",
+      "assay": "模拟捕食者袭击：开放区远端放食物环，鱼进入食物环 1 倍体长范围时用捕食者模型（如白鹭模型）袭击",
+      "name": "袭击后再次出游潜伏期",
+      "definition": "从模拟袭击到鱼再次游出避难所、进入开放水域或食物环 1 倍体长范围内的最短时间",
+      "interpretation": "潜伏期越短 → 越勇敢",
+      "references": "李武新等, 2021（综述推荐的常规方法）；Wilson & Stevens, 2005",
+      "notes": "综述建议先做预实验，使录像时长内至少 2/3 的个体在袭击后能再次游进开放水域或恢复游动"
+    },
+    {
+      "id": 3,
+      "dimension": "勇敢性\nBoldness",
+      "assay": "同上（避难所 + 开放区 / 食物环）",
+      "name": "穿门频率；进入危险区（食物环 1 倍体长范围）的次数",
+      "definition": "统计鱼穿过活板门的次数，以及进入食物环 1 倍体长范围的次数",
+      "interpretation": "次数越多 → 越勇敢",
+      "references": "李武新等, 2021",
+      "notes": "危险区半径通常按 1 倍体长设定"
+    },
+    {
+      "id": 4,
+      "dimension": "勇敢性\nBoldness",
+      "assay": "同上；或带掩蔽物（水草、遮顶）的水箱",
+      "name": "危险区 / 开放区停留时间（比例）",
+      "definition": "在食物环 1 倍体长范围内的停留时间；Jolles 等（2017）用 30 min 试验中“离开掩蔽物的时间比例”，测 2 次取平均",
+      "interpretation": "停留时间越长 → 越勇敢",
+      "references": "李武新等, 2021；Jolles et al., 2017",
+      "notes": "Jolles 等（2017）中该指标重复力 R = 0.48（95% CI 0.33–0.60），作者把它称为“探索倾向”，说明勇敢性和探索性的叫法常混用"
+    },
+    {
+      "id": 5,
+      "dimension": "勇敢性\nBoldness",
+      "assay": "旷场（空白场地，无遮蔽）",
+      "name": "中心区停留时间；进入中心区次数；贴壁（边缘区）时间",
+      "definition": "把场地划分为中心区和边缘区。Axling 等（2023）在 30×42 cm 场地中记录中心区时长和进入次数；Dahlbom 等（2011）在 29×19 cm 场地中设 4×7 cm 椭圆中心区，时间按“区内秒数 ×100 / 总时长”归一化",
+      "interpretation": "中心区时间越长、进入越多 → 越勇敢；贴壁时间越长 → 越胆小 / 焦虑",
+      "references": "Champagne et al., 2010；Dahlbom et al., 2011；Axling et al., 2023",
+      "notes": "Champagne 等（2010）发现斑马鱼进入新环境的前 2 min 贴壁和高速游动最明显，之后逐渐习惯化，因此应注意统计时段"
+    },
+    {
+      "id": 6,
+      "dimension": "勇敢性\nBoldness",
+      "assay": "遮顶 / 隐蔽所测试（Dahlbom 等：在场地中放 5×5 cm 不透明 PVC 遮顶）",
+      "name": "隐蔽时间",
+      "definition": "停留在遮顶或隐蔽物下方的时间",
+      "interpretation": "隐蔽时间越长 → 越胆小",
+      "references": "Dahlbom et al., 2011",
+      "notes": "Dahlbom 等用 PLS-DA 综合各指标：中心区时间多、移动多的个体偏向勇敢 / 日后成为优势个体；遮顶下时间多的个体偏向胆小 / 从属"
+    },
+    {
+      "id": 7,
+      "dimension": "焦虑 / 应激\n（害羞-勇敢轴相关）",
+      "assay": "新异水槽潜水测试（Egan 等：1.5 L 梯形缸，测 6 min，水平等分为上下两半）",
+      "name": "首次进入上半区潜伏期；上半区停留时间；进入上半区次数",
+      "definition": "以水槽中线划分上下区，记录首次越过中线的时间、上半区累计时间和进入次数",
+      "interpretation": "潜伏期短、上层时间长、进入次数多 → 焦虑低（偏勇敢）；反之焦虑高（偏胆小）",
+      "references": "Egan et al., 2009；Cachat et al., 2010",
+      "notes": "早期研究把水槽分为上、中、下三层，Egan 等改为两等分；底部停留时间是这一范式最主要的指标"
+    },
+    {
+      "id": 8,
+      "dimension": "焦虑 / 应激\n（害羞-勇敢轴相关）",
+      "assay": "新异水槽、旷场、明暗箱等",
+      "name": "冻结（freezing）次数与总时长",
+      "definition": "Egan 等（2009）的定义：除鳃和眼睛外完全静止，持续 ≥1 s；斑马鱼行为目录（Kalueff 等, 2013）定义为在缸底完全停止运动，可统计潜伏期、频次、时长和位置",
+      "interpretation": "冻结越多、越长 → 焦虑越高 / 越胆小",
+      "references": "Egan et al., 2009；Kalueff et al., 2013",
+      "notes": "用轨迹判定时需同时设定速度阈值和最短持续时间；不同研究的时长阈值不统一，应在方法中写明"
+    },
+    {
+      "id": 9,
+      "dimension": "焦虑 / 应激\n（害羞-勇敢轴相关）",
+      "assay": "同上",
+      "name": "不规则游动（erratic movement）次数",
+      "definition": "方向或速度的急剧改变，以及反复的快速冲刺（darting）",
+      "interpretation": "次数越多 → 焦虑越高",
+      "references": "Egan et al., 2009；Kalueff et al., 2013",
+      "notes": "原始定义没有给出数值阈值；用轨迹自动识别时需自定转角或加速度阈值，并说明依据"
+    },
+    {
+      "id": 10,
+      "dimension": "焦虑 / 应激\n（害羞-勇敢轴相关）",
+      "assay": "明暗箱 / 趋暗性测试（scototaxis）：水箱一半黑、一半白",
+      "name": "白区停留时间；首次进入白区潜伏期；进入白区次数；黑白区穿梭次数",
+      "definition": "统计在白区的累计时间、首次进入的时间、进入次数和往返次数；另可人工记录白区内的贴壁、冻结和爆发式游动",
+      "interpretation": "白区时间越长、穿梭越多 → 焦虑越低（偏勇敢）",
+      "references": "Maximino et al., 2010",
+      "notes": "Maximino 等发现单次 15 min 测试中白区回避不会习惯化，但运动量会随重复暴露而习惯化"
+    },
+    {
+      "id": 11,
+      "dimension": "探索性\nExploration",
+      "assay": "全新、陌生的环境（无捕食者，可放新异物体：人工水草、彩色石头、PVC 管等）",
+      "name": "首次探索潜伏期",
+      "definition": "从试验开始到首次进入新空间、接触新物体或摄取新食物的时间。Fu（2020）定义为首次游到新物体 7 cm（约 1 倍体长）范围内的时间",
+      "interpretation": "潜伏期越短 → 探索性越强",
+      "references": "李武新等, 2021；Fu, 2020；Mazué et al., 2015",
+      "notes": "与勇敢性的区别在于环境：探索性要在从未经历过的环境中测，且环境里没有捕食者或声、光、振动等惊吓刺激"
+    },
+    {
+      "id": 12,
+      "dimension": "探索性\nExploration",
+      "assay": "同上",
+      "name": "游泳速度",
+      "definition": "由相邻帧质心位移除以时间得到逐帧速度；Fu（2020）只取速度 >1.75 cm/s 的帧，再取中位数",
+      "interpretation": "速度越快 → 探索性越强",
+      "references": "李武新等, 2021；Fu, 2020",
+      "notes": "1.75 cm/s 用于排除系统噪声和微小晃动，是针对宽鳍鱲幼鱼的取值，换物种时需重新标定"
+    },
+    {
+      "id": 13,
+      "dimension": "探索性\nExploration",
+      "assay": "同上",
+      "name": "运动时间比（PTM）",
+      "definition": "游泳速度 >1.75 cm/s 的时间占总时间的百分比（Fu, 2020）",
+      "interpretation": "运动时间比越高 → 探索性越强",
+      "references": "李武新等, 2021；Fu, 2020",
+      "notes": null
+    },
+    {
+      "id": 14,
+      "dimension": "探索性\nExploration",
+      "assay": "同上",
+      "name": "运动总路程",
+      "definition": "整段轨迹相邻点距离之和",
+      "interpretation": "总路程越长 → 探索性越强",
+      "references": "李武新等, 2021",
+      "notes": null
+    },
+    {
+      "id": 15,
+      "dimension": "探索性\nExploration",
+      "assay": "新异物体测试",
+      "name": "对新异物体的探索时间；与新物体的平均距离",
+      "definition": "逐帧计算鱼与物体的欧氏距离 D = √[(x−xₙ)² + (y−yₙ)²]，取所有帧的均值（Fu, 2020）；或统计在物体附近区域内的停留时间",
+      "interpretation": "探索时间越长、平均距离越小 → 探索性越强",
+      "references": "李武新等, 2021；Fu, 2020",
+      "notes": "Fu（2020）发现宽鳍鱲在有新物体时的指标与对照（同位置设一个虚拟物体）没有差异，提示鱼可能“无视”新物体，因此需要设对照"
+    },
+    {
+      "id": 16,
+      "dimension": "探索性\nExploration",
+      "assay": "同上",
+      "name": "空间探索覆盖（热图 / 网格到访）",
+      "definition": "把场地划分网格，统计到访过的网格比例，或用轨迹热图评价个体探索新区域的效率",
+      "interpretation": "覆盖比例越高 → 探索性越强",
+      "references": "Rodriguez et al., 2018（ToxTrac 软件）",
+      "notes": "ToxTrac 等追踪软件可直接导出这类统计和热图；网格大小没有统一标准，需自行设定并说明"
+    },
+    {
+      "id": 17,
+      "dimension": "活跃性\nActivity",
+      "assay": "安全（无风险）且熟悉的环境；单尾鱼驯化 30–60 min 后录像",
+      "name": "运动时间比（PTM）",
+      "definition": "游泳速度 >1.75 cm/s 的时间百分比（Fu, 2020）",
+      "interpretation": "比例越高 → 越活跃",
+      "references": "李武新等, 2021；Fu, 2020",
+      "notes": "玻璃内壁会产生镜像，鱼可能对镜像表现好斗行为（沿壁来回游），实验前应把内壁打磨模糊"
+    },
+    {
+      "id": 18,
+      "dimension": "活跃性\nActivity",
+      "assay": "同上",
+      "name": "游泳速度（中位数或均值）",
+      "definition": "逐帧速度；Fu（2020）取游动帧（>1.75 cm/s）的中位数",
+      "interpretation": "越快 → 越活跃",
+      "references": "李武新等, 2021；Fu, 2020",
+      "notes": null
+    },
+    {
+      "id": 19,
+      "dimension": "活跃性\nActivity",
+      "assay": "同上；Axling 等（2023）用 5 min 旷场",
+      "name": "移动距离；移动时长",
+      "definition": "整段或每分钟的移动距离（cm）和处于移动状态的时长（s）",
+      "interpretation": "越大 → 越活跃",
+      "references": "Axling et al., 2023",
+      "notes": "Axling 等（2023）发现活跃性与勇敢性正相关"
+    },
+    {
+      "id": 20,
+      "dimension": "活跃性\nActivity",
+      "assay": "同上",
+      "name": "游泳回合数（swimming bouts）",
+      "definition": "统计单位时间内的游动次数",
+      "interpretation": "回合越多 → 越活跃",
+      "references": "Brodin et al., 2013",
+      "notes": null
+    },
+    {
+      "id": 21,
+      "dimension": "活跃性\nActivity",
+      "assay": "同上",
+      "name": "转向率",
+      "definition": "相邻帧朝向向量夹角除以时间：cos⁻¹(cₜ·cₜ₊₁)/Δt，取游动帧的中位数（Fu, 2020）；类似指标还有曲折度（°/m，Kalueff et al., 2013）",
+      "interpretation": "描述路径曲折程度，一般与活跃性一起报告，本身不直接对应“高 / 低活跃”",
+      "references": "Fu, 2020；Kalueff et al., 2013",
+      "notes": "Fu（2020）发现速度、PTM、转向率在勇敢性、探索性和对照情境下都正相关，建议可以直接用前两个情境的数据评估活跃性，无需另做测试"
+    },
+    {
+      "id": 22,
+      "dimension": "社会性\nSociability",
+      "assay": "二元选择水箱：3 个隔间长度约 1∶2∶1，一侧放 4–6 尾刺激鱼群，另一侧空白；隔板透明且阻断水流（只留视觉信息）",
+      "name": "鱼群附近停留时间比",
+      "definition": "目标鱼在距鱼群隔间一定范围（1 倍体长或 10 cm）内的停留时间比例；录像 10–15 min",
+      "interpretation": "比例越高 → 社会性越强",
+      "references": "李武新等, 2021；Cote et al., 2010",
+      "notes": "刺激鱼群最好是目标鱼不熟悉的同种个体；Cattelan 等（2017）专门讨论了镜像测试能否替代鱼群来测社会性"
+    },
+    {
+      "id": 23,
+      "dimension": "社会性\nSociability",
+      "assay": "单个同伴放在透明杯中（无身体和嗅觉接触）",
+      "name": "同伴 1 倍体长范围内停留时间",
+      "definition": "录像 900 s，去掉前 300 s 作为适应期，统计剩余 600 s 内在同伴 1 倍体长范围内的时间",
+      "interpretation": "时间越长 → 社会性越强",
+      "references": "Bevan et al., 2018",
+      "notes": null
+    },
+    {
+      "id": 24,
+      "dimension": "社会性\nSociability",
+      "assay": "50×30 cm 水箱，两侧小隔间之一放 5 尾刺激鱼",
+      "name": "与鱼群隔间的平均距离",
+      "definition": "每次试验 15 min，测 2 次，取两次平均距离作为社会性得分",
+      "interpretation": "距离越小 → 社会性越强",
+      "references": "Jolles et al., 2017",
+      "notes": "该指标重复力 R = 0.58（95% CI 0.46–0.68）；与勇敢性不相关（r = −0.05）"
+    },
+    {
+      "id": 25,
+      "dimension": "社会性\nSociability",
+      "assay": "单尾鱼与同种鱼群共处",
+      "name": "加入鱼群的潜伏期",
+      "definition": "单独个体从试验开始到加入同类鱼群的最短时间",
+      "interpretation": "潜伏期越短 → 社会性越强",
+      "references": "李武新等, 2021",
+      "notes": null
+    },
+    {
+      "id": 26,
+      "dimension": "社会性 / 群体行为\nShoaling",
+      "assay": "多尾鱼自由游动并同时追踪身份（Jolles 等：直径 80 cm 圆形缸，24 fps）",
+      "name": "最近邻距离（NND）；平均个体间距（IID）；极化度；前后位置；领导事件",
+      "definition": "NND：每个时刻到最近同伴的距离；IID：群内两两距离的均值（群体凝聚度）；极化度：0–1，1 表示方向完全一致；前后位置：以群体质心和前进方向为坐标系，统计个体处在前方的帧比例；领导：某鱼速度或方向的改变在 3 s 内被另一尾鱼“复制”即计为一次领导事件",
+      "interpretation": "NND、IID 越小 → 群体越紧密；个体社会性得分与游速负相关（越社会的个体游得越慢），并可预测其在群中的前后位置和领导性",
+      "references": "Miller & Gerlai, 2007；Jolles et al., 2017",
+      "notes": "Jolles 等把同时满足 IID ≤ 160 mm、速度 ≥ 0.5 倍体长/s、极化度 ≥ 0.6 的帧判为“集群游动”"
+    },
+    {
+      "id": 27,
+      "dimension": "好斗性\nAggressiveness",
+      "assay": "镜像刺激测试（MIS）：在场地一侧固定镜子（Axling 等：20 min）",
+      "name": "镜像区停留时长；镜像区内移动距离",
+      "definition": "统计在镜子附近区域内的时长和移动距离",
+      "interpretation": "越大 → 越好斗",
+      "references": "Axling et al., 2023",
+      "notes": "Axling 等用人工计数的“撞击镜子”行为（每分钟秒数）与这两个轨迹指标建立判别模型，再给约 2000 尾鱼分组"
+    },
+    {
+      "id": 28,
+      "dimension": "好斗性\nAggressiveness",
+      "assay": "入侵者实验（同种入侵者装在透明容器中）或镜像刺激实验；目标鱼提前过夜驯化",
+      "name": "攻击行为次数和持续时间：警告 / 冲撞、追逐、撕咬、侧展示、冲刺",
+      "definition": "每次录像约 10 min，换 4–7 尾不同入侵者重复，共得到 5–8 段视频，各参数取平均；镜像实验每次随机更换镜子位置",
+      "interpretation": "次数越多、时间越长 → 越好斗",
+      "references": "李武新等, 2021；Way et al., 2015",
+      "notes": "这些行为一般要人工或姿态识别来计数，单靠质心轨迹只能用镜像区停留时间来近似；Way 等（2015）比较 6 种测法，发现平面镜和活体同种比斜镜、黏土模型、视频引发更多撕咬"
+    },
+    {
+      "id": 29,
+      "dimension": "好斗性\nAggressiveness",
+      "assay": "同上",
+      "name": "好斗等级划分",
+      "definition": "Axling 等（2023）按每分钟撞击秒数分为：高 50–60 s/min；中 30–50 s/min；低 >0–30 s/min；零 0 s/min。综述指出一般分为低、中、高 3 级",
+      "interpretation": "按阈值把个体划入对应等级",
+      "references": "Axling et al., 2023；李武新等, 2021",
+      "notes": "Balzarini 等（2014）专门讨论了镜像测试对真实攻击性的预测效度，正式使用前宜用活体对手验证"
+    },
+    {
+      "id": 30,
+      "dimension": "勇敢性 / 风险评估",
+      "assay": "神仙鱼等；透明隔离的捕食者模型检查测试",
+      "name": "对捕食者的最近接近距离",
+      "definition": "计算每帧鱼质心至捕食者模型边界的距离 d(t)，取有效检查阶段的最小值；单位 cm 或体长。",
+      "interpretation": "接近距离小表示允许更近的风险接触；不能脱离社会地位直接判为更勇敢。",
+      "references": "Gómez-Laplaza, 2002",
+      "notes": "新增；方法衍生：原文支持检查距离与社会等级差异；连续距离最小值为本表操作化。排除追踪跳点，并明确用模型边界还是中心。"
+    },
+    {
+      "id": 31,
+      "dimension": "勇敢性 / 风险规避",
+      "assay": "珊瑚礁鱼；威胁刺激以标准化速度接近",
+      "name": "逃逸启动距离（FID）",
+      "definition": "在鱼首次明确撤离的时刻，测量鱼与接近威胁之间的距离；单位 cm，可另除以体长。",
+      "interpretation": "FID 大通常表示更早避险、风险规避更强；不等同于逃得更快。",
+      "references": "Coni et al., 2022",
+      "notes": "新增；文献实测。固定接近速度、起始距离和角度；原研究为野外鱼类，移用于水槽需验证，未逃逸者单独编码。"
+    },
+    {
+      "id": 32,
+      "dimension": "勇敢性相关 / 逃逸反应",
+      "assay": "三刺鱼；机械白鹭模拟伏击",
+      "name": "刺激后逃逸反应潜伏期",
+      "definition": "从袭击刺激开始至首次快速逃逸运动开始的时间，单位 ms 或 s；需同步刺激时间戳与高速录像。",
+      "interpretation": "原研究中发生逃逸的个体里，较勇敢者反应更快；饱食状态可使反应变慢。",
+      "references": "Planas-Sitjà & Ioannou, 2025",
+      "notes": "新增；文献实测。与原序号2“袭击后再次出游”不同：这里测首次逃逸启动。冻结和无反应不记作正常长潜伏期。"
+    },
+    {
+      "id": 33,
+      "dimension": "探索性 / 环境适应",
+      "assay": "斑马鱼；30 min 旷场，识别偏好基地（homebase）",
+      "name": "探索基地形成潜伏期",
+      "definition": "从放入场地至预先规定的基地形成判据首次成立的时间。基地为停留集中、反复返回的区域。",
+      "interpretation": "反映建立空间参照的速度；不能统一解释为越短越勇敢或探索性越高。",
+      "references": "Resmim et al., 2023",
+      "notes": "新增；文献实测。区域划分、持续窗口及稳定性判据需预先规定；本文摘要未提供可直接通用的数值阈值。"
+    },
+    {
+      "id": 34,
+      "dimension": "探索性 / 探索组织",
+      "assay": "斑马鱼；旷场中的基地外出探索",
+      "name": "基地外出回合数（trips）",
+      "definition": "从离开基地到再次返回基地记为一次完整外出；记录次数，时长不同时可换算为次/min。",
+      "interpretation": "更多完整外出表示更频繁的基地往返探索；需控制总体运动量。",
+      "references": "Stewart et al., 2010；Resmim et al., 2023",
+      "notes": "新增；文献实测。不是原序号20的每次启停游动；一次外出可包含多次游泳回合。观察结束时未返回的回合另记。"
+    },
+    {
+      "id": 35,
+      "dimension": "探索性 / 探索范围",
+      "assay": "斑马鱼；与基地外出回合相同的旷场情境",
+      "name": "单次外出平均路径长度",
+      "definition": "对每个完整外出回合，累加相邻质心点位移得到 Lk；再取各回合均值，单位 cm 或体长。",
+      "interpretation": "数值大表示每次外出的路线更长；可能受速度和曲折程度影响。",
+      "references": "Resmim et al., 2023；Borba et al., 2022",
+      "notes": "新增；文献实测。与原序号14整场总路程不同。没有完整外出回合时为不适用，不记为0。"
+    },
+    {
+      "id": 36,
+      "dimension": "探索性 / 应激相关",
+      "assay": "斑马鱼；应激处理后的旷场基地探索",
+      "name": "每次外出停顿数",
+      "definition": "识别完整外出回合，在每回合内按速度阈值和最短时长识别停顿，统计停顿数并取均值。",
+      "interpretation": "停顿多表示探索更碎片化；原研究慢性应激组可增加，不能直接换算胆小程度。",
+      "references": "Borba et al., 2022",
+      "notes": "新增；文献实测行为端点；轨迹停顿阈值需标定。区分短暂停顿、冻结和追踪丢失。"
+    },
+    {
+      "id": 37,
+      "dimension": "探索性 / 空间记忆相关",
+      "assay": "斑马鱼；连续两天在同一旷场复测",
+      "name": "探索基地位置保持率",
+      "definition": "区域划分一致时，判断复测基地是否与首次同区；个体记0/1，多次复测可计算保持比例。",
+      "interpretation": "保持率高表示空间偏好稳定；不是探索性高低的单向量表。",
+      "references": "Resmim et al., 2023",
+      "notes": "新增；文献实测。需重复测试和一致坐标方向；旋转场地或改变外部线索会改变解释。"
+    },
+    {
+      "id": 38,
+      "dimension": "探索模式 / 轨迹复杂性",
+      "assay": "成年斑马鱼；三维自由游动追踪",
+      "name": "轨迹相关维数（分形维数）",
+      "definition": "用三维轨迹点计算不同半径 r 下的点对接近比例 C(r)，在有效尺度区间估计 log C(r) 对 log r 的斜率。",
+      "interpretation": "较高值表示更复杂的空间占用；不直接代表更探索或更健康。",
+      "references": "Suryanto et al., 2022",
+      "notes": "新增；文献实测。需统一三维采样、轨迹长度、尺度区间和时间近邻排除规则；2D与3D结果不可混用。"
+    },
+    {
+      "id": 39,
+      "dimension": "探索模式 / 空间使用",
+      "assay": "无风险旷场；固定等面积网格",
+      "name": "空间占用熵",
+      "definition": "pk 为第 k 格停留时间/有效总时长；H=−Σpk·ln(pk)，可用 H/ln(K) 归一化；K为全部可进入网格数，0·ln0按0处理。",
+      "interpretation": "熵高表示停留分布更均匀；与“到访网格比例”不同，不能单独判定高探索性。",
+      "references": "Rodriguez et al., 2018（轨迹网格基础）；本表方法衍生",
+      "notes": "新增；方法衍生，未把软件文献当作性格效度证明。固定K和格长；静止、贴壁或空间偏好均可使熵下降。"
+    },
+    {
+      "id": 40,
+      "dimension": "活跃性相关 / 运动结构",
+      "assay": "斑马鱼幼体；自发或视动反应的间歇游动",
+      "name": "单次游动回合持续时间",
+      "definition": "由回合开始至结束的时间，取中位数或均值，单位 ms；开始/结束由尾部运动或预设速度阈值识别。",
+      "interpretation": "时长大表示回合更持久；不能据此直接判断成年鱼更活跃。",
+      "references": "Holman et al., 2023",
+      "notes": "新增；文献实测运动参数。原文视动情境与自发活动不同；幼体阈值不可直接套用于成鱼。"
+    },
+    {
+      "id": 41,
+      "dimension": "活跃性相关 / 运动节律",
+      "assay": "斑马鱼幼体；连续游动回合检测",
+      "name": "回合间隔（IBI）",
+      "definition": "IBIk=下一回合开始时间−本回合结束时间，取分布或中位数，单位 ms。",
+      "interpretation": "间隔短表示启动下一次游动更快；与回合数相关，但包含停歇节律信息。",
+      "references": "Holman et al., 2023",
+      "notes": "新增；文献实测。明确与“相邻回合开始到开始”的周期不同；删去录像边界不完整间隔。"
+    },
+    {
+      "id": 42,
+      "dimension": "活跃性相关 / 运动强度",
+      "assay": "斑马鱼幼体；回合级运动分析",
+      "name": "单次回合净位移",
+      "definition": "Dk=||回合结束位置−回合开始位置||，单位 mm 或体长；对有效回合汇总。",
+      "interpretation": "数值大表示一次推进更远；与全程总路程和平均游速不同。",
+      "references": "Holman et al., 2023",
+      "notes": "新增；文献涉及回合位移；此处明确采用起终点净位移，非曲线路径长度。回合分割须一致。"
+    },
+    {
+      "id": 43,
+      "dimension": "活跃性相关 / 爆发运动",
+      "assay": "斑马鱼幼体；回合级运动分析",
+      "name": "回合峰值速度",
+      "definition": "每回合取瞬时速度最大值，再汇总各回合峰值的中位数，单位 mm/s 或体长/s。",
+      "interpretation": "峰值高表示单次推进的瞬时强度大；不等于日常活动总量大。",
+      "references": "Holman et al., 2023",
+      "notes": "新增；文献实测。原文指出峰值比初始回合速度更易受噪声影响；需高帧率、统一平滑并检查离群值。"
+    },
+    {
+      "id": 44,
+      "dimension": "活跃性相关 / 运动变化",
+      "assay": "有标定尺度的二维或三维轨迹；熟悉安全环境",
+      "name": "平均绝对切向加速度",
+      "definition": "先算速度 v(t)，再算 a(t)=[v(t+Δt)−v(t)]/Δt；汇总 mean(|a|)，单位 cm/s² 或体长/s²。",
+      "interpretation": "较高表示加减速更频繁或更剧烈；不设“越高越活跃”的通用判定。",
+      "references": "Holman et al., 2023（速度时程基础）；本表方法衍生",
+      "notes": "新增；方法衍生。这里是速率的变化，区别于含转向的向量加速度；二次差分放大噪声，必须校验轨迹。"
+    },
+    {
+      "id": 45,
+      "dimension": "活跃性相关 / 运动变异",
+      "assay": "熟悉安全环境；统一统计窗",
+      "name": "速度变异系数（CV）",
+      "definition": "CV=SD(v)/mean(v)，无量纲；明确计算全部有效帧还是仅运动帧，全研究使用同一口径。",
+      "interpretation": "CV大表示相对速度波动更强；不是活跃性高低或勇敢性的直接证据。",
+      "references": "Fu, 2020（速度计算基础）；本表方法衍生",
+      "notes": "新增；方法衍生。均值为0时不适用；接近0时不稳定。与平均速度分别报告，避免冻结造成误判。"
+    },
+    {
+      "id": 46,
+      "dimension": "焦虑 / 空间偏好相关",
+      "assay": "成年斑马鱼；水槽自由游动",
+      "name": "距水槽平面中心的平均距离",
+      "definition": "逐帧计算到水槽水平中心的欧氏距离并取均值，单位 cm；跨场地比较需统一几何或归一化。",
+      "interpretation": "距离大表示更偏向外围；可辅助描述贴壁，不能排除角落偏好或刻板游动。",
+      "references": "Suryanto et al., 2022",
+      "notes": "新增；文献实测。连续距离不同于原序号5的边缘区时间；二维俯视足够，勿把高度混入平面贴壁距离。"
+    },
+    {
+      "id": 47,
+      "dimension": "活跃性 / 应激相关",
+      "assay": "成年斑马鱼；三维游动速度分级",
+      "name": "快速游动时间比例",
+      "definition": "有效时间中满足 v>v_fast 的累计时长/有效总时长×100%；v_fast 为预先标定的快速游动阈值。",
+      "interpretation": "比例高表示高速状态占比高；在应激情境可能是逃逸或过度兴奋。",
+      "references": "Suryanto et al., 2022",
+      "notes": "新增；文献实测。区别于原序号13/17“所有运动”的PTM；不得未经标定把某物种的速度界限作为通用阈值。"
+    },
+    {
+      "id": 48,
+      "dimension": "社会性 / 群体空间位置",
+      "assay": "三刺鱼等；多鱼同时追踪并保留身份",
+      "name": "个体到群体质心的平均距离",
+      "definition": "每帧 c(t)=Σrj(t)/N；计算 ||ri(t)−c(t)|| 后取时间均值，单位 cm 或体长。",
+      "interpretation": "距离小表示位置更靠近群体中心；与最近邻距离不同。",
+      "references": "Neumann et al., 2025",
+      "notes": "新增；文献实测。固定群体大小；说明质心包含目标鱼。个体居中不等同主动社交。"
+    },
+    {
+      "id": 49,
+      "dimension": "社会性 / 成对联结",
+      "assay": "三刺鱼；同群个体自由互动",
+      "name": "成对接近时间比例",
+      "definition": "wij=两鱼距离≤r的有效共同可见时间/共同可见总时长；原研究邻近尺度为1倍体长。",
+      "interpretation": "数值大表示这一对鱼更常接近；不自动等于偏好或友好互动。",
+      "references": "Neumann et al., 2025",
+      "notes": "新增；文献实测并按时间归一化。需明确体长采用哪尾鱼或两鱼均值；剔除追逐攻击后可再做敏感性分析。"
+    },
+    {
+      "id": 50,
+      "dimension": "社会性 / 社会网络",
+      "assay": "按成对接近比例构建加权网络",
+      "name": "加权节点强度（strength）",
+      "definition": "对个体 i 求 si=Σj≠i wij；wij 为成对接近时间比例。",
+      "interpretation": "强度高表示与群内同伴的接近联结总量大。",
+      "references": "Neumann et al., 2025",
+      "notes": "新增；文献实测。比较时群体规模须相同，或明确归一化；与序号49有数学依赖，不宜同时等权加分。"
+    },
+    {
+      "id": 51,
+      "dimension": "社会性 / 社会网络结构",
+      "assay": "同一加权接近网络",
+      "name": "局部加权聚类系数",
+      "definition": "量化目标鱼的伙伴之间也彼此联结的程度。原研究采用 DirectedClustering 的加权局部聚类方法。",
+      "interpretation": "数值高表示伙伴之间联结更紧密；不等于目标鱼更勇敢或社交次数更多。",
+      "references": "Neumann et al., 2025",
+      "notes": "新增；文献实测。报告算法、软件版本、边权和孤立节点处理；不同聚类公式不能直接混比。"
+    },
+    {
+      "id": 52,
+      "dimension": "社会性 / 联结持续性",
+      "assay": "孔雀鱼；保留身份的最近邻时间序列",
+      "name": "最近邻接触片段平均持续时间",
+      "definition": "同一伙伴连续保持为目标鱼最近邻的观测序列记为一个片段；片段长度乘采样间隔后取均值。",
+      "interpretation": "时长大表示最近邻伙伴关系维持更久；未必表示总体社会性更高。",
+      "references": "Hasenjager & Dugatkin, 2017",
+      "notes": "新增；文献实测。此处contact是最近邻关系，不要求身体接触；最近邻关系可为有向，需控制漏帧和身份交换。"
+    },
+    {
+      "id": 53,
+      "dimension": "社会性 / 联结重复性",
+      "assay": "孔雀鱼；成对最近邻序列",
+      "name": "同一伙伴接触片段频率",
+      "definition": "统计目标鱼与指定伙伴形成最近邻连续片段的次数，除以共同可见分钟数，单位 次/min。",
+      "interpretation": "频率高表示与该伙伴反复建立邻近关系；不等同于每次联结持续更久。",
+      "references": "Hasenjager & Dugatkin, 2017",
+      "notes": "新增；文献实测次数，此处按时长归一化。与原序号26平均距离不同；抽样间隔影响片段切分。"
+    },
+    {
+      "id": 54,
+      "dimension": "社会性 / 伙伴选择",
+      "assay": "自由群游；基于成对接近比例网络",
+      "name": "最强伙伴联结占比",
+      "definition": "Fi=maxj(wij)/Σj≠i wij；分母为0时记不适用，范围0–1。",
+      "interpretation": "高值表示接近行为集中于一个伙伴；不表示社交总量更大。",
+      "references": "Hasenjager & Dugatkin, 2017；Neumann et al., 2025（网络基础）；本表方法衍生",
+      "notes": "新增；方法衍生。原文讨论非随机伙伴联结；本式为候选汇总量，需用身份随机化区分偏好与偶然相遇。"
+    },
+    {
+      "id": 55,
+      "dimension": "好斗性 / 攻击启动",
+      "assay": "斑马鱼；体型匹配的同性双鱼对抗",
+      "name": "首次攻击潜伏期",
+      "definition": "从对抗观察开始到首次明确攻击动作的时间，单位 s；动作含冲撞、追逐或咬击，按预设行为谱判定。",
+      "interpretation": "潜伏期短表示攻击启动更快；需与攻击次数和胜负信息共同解释。",
+      "references": "Scaia et al., 2022",
+      "notes": "新增；文献实测。轨迹只能辅助，需人工或姿态识别确认攻击；与单纯靠近镜子的时间不同。未攻击者为右删失。"
+    },
+    {
+      "id": 56,
+      "dimension": "好斗性 / 优势关系建立",
+      "assay": "斑马鱼；两尾鱼直接对抗",
+      "name": "对抗解决时间",
+      "definition": "从对抗开始至攻击/退让出现持续不对称、可区分优势与从属角色的时间，单位 s。",
+      "interpretation": "时间短表示等级关系更快确立；是双鱼交互结果，不能单独给一尾鱼定高攻击性。",
+      "references": "Scaia et al., 2022",
+      "notes": "新增；文献实测。预先定义不对称持续窗口并盲法评分；未分出结果时保留删失标记。"
+    },
+    {
+      "id": 57,
+      "dimension": "好斗性相关 / 从属反应",
+      "assay": "斑马鱼；双鱼对抗",
+      "name": "退让事件频率",
+      "definition": "识别对手接近或攻击后目标鱼主动后退/撤离的事件，次数除以有效观察分钟数。",
+      "interpretation": "退让频繁提示从属或回避；也受对手攻击强度影响。",
+      "references": "Scaia et al., 2022",
+      "notes": "新增；文献实测行为类别。仅凭速度增加不能区分追击与逃离，需两鱼相对位置、朝向及视频复核。"
+    },
+    {
+      "id": 58,
+      "dimension": "好斗性 / 接近后的攻击投入",
+      "assay": "三刺鱼；镜像刺激试验",
+      "name": "镜前停留中的咬击时间比例",
+      "definition": "镜前近区内发生咬击的累计时间/镜前近区累计停留时间×100%；近区需预先定义。",
+      "interpretation": "比例高表示接近镜像后有更大部分时间用于攻击，能区分靠近与实际咬击。",
+      "references": "Norton & Carreño Gutiérrez, 2019",
+      "notes": "新增；文献实测。需人工或姿态识别；镜前停留为0时不适用。与原序号27停留总时长、28攻击总时长有别。"
+    }
+  ],
+  "references": [
+    [
+      1,
+      "李武新等, 2021",
+      "李武新, 孙春艳, 曾令清. 2021. 鱼类个性测定方法研究进展. 生态学杂志, 40(2): 544–558.",
+      "10.13292/j.1000-4890.202102.031",
+      "五个性格维度的常规测定方法、指标与判定方向（核心中文综述）"
+    ],
+    [
+      2,
+      "Réale et al., 2007",
+      "Réale D, Reader SM, Sol D, et al. 2007. Integrating animal temperament within ecology and evolution. Biological Reviews, 82: 291–318.",
+      "10.1111/j.1469-185x.2007.00010.x",
+      "五个性格维度的定义"
+    ],
+    [
+      3,
+      "Toms et al., 2010",
+      "Toms CN, Echevarria DJ, Jouandot DJ. 2010. A methodological review of personality-related studies in fish: focus on the shy-bold axis of behavior. International Journal of Comparative Psychology, 23(1).",
+      "10.46867/ijcp.2010.23.01.08",
+      "鱼类害羞-勇敢轴测定方法综述（背景）"
+    ],
+    [
+      4,
+      "Conrad et al., 2011",
+      "Conrad JL, Weinersmith KL, Brodin T, et al. 2011. Behavioural syndromes in fishes: a review with implications for ecology and fisheries management. Journal of Fish Biology, 78: 395–435.",
+      "10.1111/j.1095-8649.2010.02874.x",
+      "行为综合征综述"
+    ],
+    [
+      5,
+      "Brown et al., 2005",
+      "Brown C, Jones F, Braithwaite V. 2005. In situ examination of boldness–shyness traits in the tropical poeciliid, Brachyraphis episcopi. Animal Behaviour, 70: 1003–1009.",
+      "10.1016/j.anbehav.2004.12.022",
+      "出避难所潜伏期"
+    ],
+    [
+      6,
+      "Wilson & Stevens, 2005",
+      "Wilson ADM, Stevens ED. 2005. Consistency in context-specific measures of shyness and boldness in rainbow trout, Oncorhynchus mykiss. Ethology, 111: 849–862.",
+      "10.1111/j.1439-0310.2005.01110.x",
+      "袭击后再出游潜伏期"
+    ],
+    [
+      7,
+      "Bevan et al., 2018",
+      "Bevan PA, Gosetto I, Jenkins ER, et al. 2018. Regulation between personality traits: individual social tendencies modulate whether boldness and leadership are correlated. Proceedings of the Royal Society B, 285: 20180829.",
+      "10.1098/rspb.2018.0829",
+      "潜伏期判定规则、社会性 1 倍体长区、中位数分组"
+    ],
+    [
+      8,
+      "Jolles et al., 2017",
+      "Jolles JW, Boogert NJ, Sridhar VH, et al. 2017. Consistent individual differences drive collective behavior and group functioning of schooling fish. Current Biology, 27: 2862–2868.",
+      "10.1016/j.cub.2017.08.004",
+      "离开掩蔽物时间比例、社会性平均距离、重复力、群体轨迹指标"
+    ],
+    [
+      9,
+      "Champagne et al., 2010",
+      "Champagne DL, Hoefnagels CCM, de Kloet RE, et al. 2010. Translating rodent behavioral repertoire to zebrafish (Danio rerio): relevance for stress research. Behavioural Brain Research, 214: 332–342.",
+      "10.1016/j.bbr.2010.06.001",
+      "旷场贴壁、明暗箱"
+    ],
+    [
+      10,
+      "Dahlbom et al., 2011",
+      "Dahlbom SJ, Lagman D, Lundstedt-Enkel K, et al. 2011. Boldness predicts social status in zebrafish (Danio rerio). PLoS ONE, 6(8): e23565.",
+      "10.1371/journal.pone.0023565",
+      "中心区时间、隐蔽时间、归一化、PCA / PLS-DA"
+    ],
+    [
+      11,
+      "Axling et al., 2023",
+      "Axling J, Vossen LE, Peterson E, et al. 2023. Boldness, activity, and aggression: insights from a large-scale study in Baltic salmon (Salmo salar L). PLoS ONE, 18(7): e0287836.",
+      "10.1371/journal.pone.0287836",
+      "旷场 + 镜像测试的轨迹指标、好斗分级阈值"
+    ],
+    [
+      12,
+      "Egan et al., 2009",
+      "Egan RJ, Bergner CL, Hart PC, et al. 2009. Understanding behavioral and physiological phenotypes of stress and anxiety in zebrafish. Behavioural Brain Research, 205: 38–44.",
+      "10.1016/j.bbr.2009.06.022",
+      "新异水槽指标、冻结与不规则游动定义"
+    ],
+    [
+      13,
+      "Cachat et al., 2010",
+      "Cachat J, Stewart A, Grossman L, et al. 2010. Measuring behavioral and endocrine responses to novelty stress in adult zebrafish. Nature Protocols, 5: 1786–1799.",
+      "10.1038/nprot.2010.140",
+      "新异水槽测试流程"
+    ],
+    [
+      14,
+      "Kalueff et al., 2013",
+      "Kalueff AV, Gebhardt M, Stewart AM, et al. 2013. Towards a comprehensive catalog of zebrafish behavior 1.0 and beyond. Zebrafish, 10(1): 70–86.",
+      "10.1089/zeb.2012.0861",
+      "冻结、不规则游动、贴壁等行为的标准定义"
+    ],
+    [
+      15,
+      "Maximino et al., 2010",
+      "Maximino C, de Brito TM, Colmanetti R, et al. 2010. Parametric analyses of anxiety in zebrafish scototaxis. Behavioural Brain Research, 210: 1–7.",
+      "10.1016/j.bbr.2010.01.031",
+      "明暗箱指标"
+    ],
+    [
+      16,
+      "Fu, 2020",
+      "Fu SJ. 2020. The effect of personality measurement conditions on spontaneous swimming behavior in the pale chub Zacco platypus (Cyprinidae). PeerJ, 8: e8736.",
+      "10.7717/peerj.8736",
+      "速度、PTM、转向率、距离的计算公式与阈值"
+    ],
+    [
+      17,
+      "Mazué et al., 2015",
+      "Mazué GPF, Dechaume-Moncharmont FX, Godin JGJ. 2015. Boldness-exploration behavioral syndrome: interfamily variability and repeatability of personality traits in the young of the convict cichlid (Amatitlania siquia). Behavioral Ecology, 26(3): 900–908.",
+      "10.1093/beheco/arv030",
+      "探索性测定"
+    ],
+    [
+      18,
+      "Rodriguez et al., 2018",
+      "Rodriguez A, Zhang H, Klaminder J, et al. 2018. ToxTrac: a fast and robust software for tracking organisms. Methods in Ecology and Evolution, 9: 460–464.",
+      "10.1111/2041-210X.12874",
+      "轨迹追踪与探索热图工具"
+    ],
+    [
+      19,
+      "Brodin et al., 2013",
+      "Brodin T, Fick J, Jonsson M, et al. 2013. Dilute concentrations of a psychiatric drug alter behavior of fish from natural populations. Science, 339: 814–815.",
+      "10.1126/science.1226850",
+      "活跃性（游泳回合数）"
+    ],
+    [
+      20,
+      "Cote et al., 2010",
+      "Cote J, Fogarty S, Weinersmith K, et al. 2010. Personality traits and dispersal tendency in the invasive mosquitofish (Gambusia affinis). Proceedings of the Royal Society B, 277: 1571–1579.",
+      "10.1098/rspb.2009.2128",
+      "四种性格同时测定、性格间相关"
+    ],
+    [
+      21,
+      "Miller & Gerlai, 2007",
+      "Miller N, Gerlai R. 2007. Quantification of shoaling behaviour in zebrafish (Danio rerio). Behavioural Brain Research, 184: 157–166.",
+      "10.1016/j.bbr.2007.07.007",
+      "群游凝聚度（个体间距离）的量化"
+    ],
+    [
+      22,
+      "Way et al., 2015",
+      "Way GP, Ruhl N, Snekser JL, et al. 2015. A comparison of methodologies to test aggression in zebrafish. Zebrafish, 12(2): 144–151.",
+      "10.1089/zeb.2014.1025",
+      "好斗性测法比较"
+    ],
+    [
+      23,
+      "Balzarini et al., 2014",
+      "Balzarini V, Taborsky M, Wanner S, et al. 2014. Mirror, mirror on the wall: the predictive value of mirror tests for measuring aggression in fish. Behavioral Ecology and Sociobiology, 68: 871–878.",
+      "10.1007/s00265-014-1698-7",
+      "镜像测试效度"
+    ],
+    [
+      24,
+      "Cattelan et al., 2017",
+      "Cattelan S, Lucon-Xiccato T, Pilastro A, et al. 2017. Is the mirror test a valid measure of fish sociability? Animal Behaviour, 127: 109–116.",
+      "10.1016/j.anbehav.2017.03.009",
+      "镜像测试与社会性"
+    ],
+    [
+      25,
+      "Bell et al., 2009",
+      "Bell AM, Hankison SJ, Laskowski KL. 2009. The repeatability of behaviour: a meta-analysis. Animal Behaviour, 77: 771–783.",
+      "10.1016/j.anbehav.2008.12.022",
+      "重复力的影响因素"
+    ],
+    [
+      26,
+      "Nakagawa & Schielzeth, 2010",
+      "Nakagawa S, Schielzeth H. 2010. Repeatability for Gaussian and non-Gaussian data: a practical guide for biologists. Biological Reviews, 85: 935–956.",
+      "10.1111/j.1469-185x.2010.00141.x",
+      "重复力计算方法"
+    ],
+    [
+      27,
+      "Gómez-Laplaza, 2002",
+      "Gómez-Laplaza Luis 2002. SOCIAL STATUS AND INVESTIGATORY BEHAVIOUR IN THE ANGELFISH (PTEROPHYLLUM SCALARE). Behaviour, 139: 1469-1490.",
+      "https://doi.org/10.1163/15685390260514726",
+      "序号30：捕食者检查距离的行为依据；最小距离为本表衍生"
+    ],
+    [
+      28,
+      "Coni et al., 2022",
+      "Coni Ericka O. C., Booth David J., Nagelkerken Ivan 2022. Coral-reef fishes can become more risk-averse at their poleward range limits. Proceedings of the Royal Society B: Biological Sciences, 289: 20212676.",
+      "https://doi.org/10.1098/rspb.2021.2676",
+      "序号31：逃逸启动距离作为风险规避代理"
+    ],
+    [
+      29,
+      "Planas-Sitjà & Ioannou, 2025",
+      "Planas-Sitjà Isaac, Ioannou Christos. C. 2025. State-behaviour feedbacks between boldness and food intake shape escape responses in fish (Gasterosteus aculeatus). Communications Biology, 8: 227.",
+      "https://doi.org/10.1038/s42003-025-07669-w",
+      "序号32：勇敢性、进食状态与逃逸潜伏期"
+    ],
+    [
+      30,
+      "Stewart et al., 2010",
+      "Stewart Adam, Cachat Jonathan, Wong Keith, et al. 2010. Homebase behavior of zebrafish in novelty-based paradigms. Behavioural Processes, 85: 198-203.",
+      "https://doi.org/10.1016/j.beproc.2010.07.009",
+      "序号34及基地识别基础"
+    ],
+    [
+      31,
+      "Resmim et al., 2023",
+      "Resmim Cássio M., Borba João V., Pretzel Camilla W., et al. 2023. Assessing the exploratory profile of two zebrafish populations: Influence of anxiety-like phenotypes and independent trials on homebase-related parameters and exploration. Behavioural Processes, 210: 104912.",
+      "https://doi.org/10.1016/j.beproc.2023.104912",
+      "序号33–35、37：基地形成、外出及位置保持"
+    ],
+    [
+      32,
+      "Borba et al., 2022",
+      "Borba João V., Biasuz Eduarda, Sabadin Giovana R., et al. 2022. Influence of acute and unpredictable chronic stress on spatio-temporal dynamics of exploratory activity in zebrafish with emphasis on homebase-related behaviors. Behavioural Brain Research, 435: 114034.",
+      "https://doi.org/10.1016/j.bbr.2022.114034",
+      "序号35–36：应激下的外出路径和停顿"
+    ],
+    [
+      33,
+      "Suryanto et al., 2022",
+      "Suryanto Michael Edbert, Yang Chun-Chuen, Audira Gilbert, et al. 2022. Evaluation of Locomotion Complexity in Zebrafish after Exposure to Twenty Antibiotics by Fractal Dimension and Entropy Analysis. Antibiotics, 11: 1059.",
+      "https://doi.org/10.3390/antibiotics11081059",
+      "序号38、46–47：轨迹相关维数、中心距离、快速状态占比"
+    ],
+    [
+      34,
+      "Holman et al., 2023",
+      "Holman John G., Lai Winnie W. K., Pichler Paul, et al. 2023. A behavioral and modeling study of control algorithms underlying the translational optomotor response in larval zebrafish with implications for neural circuit function. PLOS Computational Biology, 19: e1010924.",
+      "https://doi.org/10.1371/journal.pcbi.1010924",
+      "序号40–43：回合时长、间隔、位移和峰速；44为衍生"
+    ],
+    [
+      35,
+      "Neumann et al., 2025",
+      "Neumann K. M., Eckert L., Miranda D., et al. 2025. Collective behavior diverges independently of the benthic-limnetic axis in stickleback. Behavioral Ecology and Sociobiology, 79: 56.",
+      "https://doi.org/10.1007/s00265-025-03599-z",
+      "序号48–51：群体质心、接近网络与聚类；54为衍生"
+    ],
+    [
+      36,
+      "Hasenjager & Dugatkin, 2017",
+      "Hasenjager Matthew J., Dugatkin Lee A. 2017. Fear of predation shapes social network structure and the acquisition of foraging information in guppy shoals. Proceedings of the Royal Society B: Biological Sciences, 284: 20172020.",
+      "https://doi.org/10.1098/rspb.2017.2020",
+      "序号52–53：最近邻接触片段；54为衍生"
+    ],
+    [
+      37,
+      "Scaia et al., 2022",
+      "Scaia María Florencia, Akinrinade Ibukun, Petri Giovanni, et al. 2022. Sex Differences in Aggression Are Paralleled by Differential Activation of the Brain Social Decision-Making Network in Zebrafish. Frontiers in Behavioral Neuroscience, 16: 784835.",
+      "https://doi.org/10.3389/fnbeh.2022.784835",
+      "序号55–57：攻击启动、对抗解决、退让"
+    ],
+    [
+      38,
+      "Norton & Carreño Gutiérrez, 2019",
+      "Norton William H. J., Gutiérrez Héctor Carreño 2019. The three-spined stickleback as a model for behavioural neuroscience. PLOS ONE, 14: e0213320.",
+      "https://doi.org/10.1371/journal.pone.0213320",
+      "序号58：镜前停留中的咬击时间比例"
+    ]
+  ]
+}

@@ -1,0 +1,4 @@
+﻿fish_id,segment_id,timestamp_ms,x_m,y_m,z_m,point_type
+F01,1,0,0.0,0,0.45,observed
+F01,1,100,0.01,0,0.45,observed
+F01,1,200,0.02,0,0.45,observed
