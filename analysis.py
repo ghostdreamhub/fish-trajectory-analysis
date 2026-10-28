@@ -297,7 +297,7 @@ def rescore(result,cfg):
             row={'fish_id':f,'metric_id':mid,'name':meta['name'],'dimension':meta['dimension'].replace('\n',' '),
               'value':float(value) if finite(value) else None,'unit':unit,'status':status,'reason':reason,
               'weight':rule['weight'],'direction':rule['direction'],'low':rule['low'],'high':rule['high'],
-              'subscore':sub,'contribution':contribution,'source':source,'notes':note,'references':meta['references']}
+              'subscore':sub,'contribution':contribution,'source':source,'notes':note}
             my.append(row)
         weight_pct=100*available/total
         if weight_pct<q['min_available_weight_pct']: reasons.append('可用评分权重不足')

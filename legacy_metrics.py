@@ -1,20 +1,20 @@
 # -*- coding: utf-8 -*-
-"""
-鱼类性格轨迹指标计算程序 fish_metrics.py
+"""Implementation details."""
 
-依据《鱼类性格-轨迹指标评价标准_58条扩充版》中“自由游动三维轨迹即可计算”的指标，
-从 fish3d 轨迹 CSV 计算每尾鱼的活跃性、空间使用、游动回合和社会距离等指标，并输出数据质量检查。
-需要专门实验装置的指标（避难所、新物体、镜子、捕食者模型、双鱼对抗等）不计算，列在输出的“不可计算指标”表中。
 
-用法：
-    python fish_metrics.py 轨迹.csv -o 输出文件夹
-    python fish_metrics.py 轨迹.csv -o 输出文件夹 -c config.json --tank-json trajectories.json --coverage frames.coverage.json
 
-输入 CSV 必需列：fish_id, segment_id, frame_id, timestamp_ms, x_m, y_m, z_m, point_type
-可选列：confidence, covariance_m2, update_kind, smoothed
 
-注意：配置中的速度、距离阈值是占位值（文献值或经验值），换物种、换装置或拿到体长后必须重新标定。
-"""
+
+
+
+
+
+
+
+
+
+
+
 import argparse
 import json
 import math
@@ -25,7 +25,7 @@ import warnings
 import numpy as np
 import pandas as pd
 
-# 某些帧只有 1 尾鱼时 nanmin/nanmean 会对全 NaN 切片报警告，结果本身已按 NaN 处理
+#
 warnings.filterwarnings("ignore", message="All-NaN slice encountered")
 warnings.filterwarnings("ignore", message="Mean of empty slice")
 
@@ -52,9 +52,9 @@ DEFAULT_CONFIG = {
     "min_fps_fine_kinematics": 10,
 }
 
-# 输出指标说明：键 -> (中文名, 单位, 对应评价标准序号, 定义/口径)
+#
 METRICS = {
-    # 数据质量
+    #
     "n_points": ("轨迹点数（计算用）", "个", "质量", "按 point_types_position 筛选后的点数"),
     "n_observed": ("实测点数", "个", "质量", "point_type = observed"),
     "n_interpolated": ("插值点数", "个", "质量", "point_type = interpolated（本数据中为单机方位更新 bearing/motion）"),
@@ -70,8 +70,8 @@ METRICS = {
     "n_outside_tank": ("缸壁外点数", "个", "质量", "水平半径 > 缸半径"),
     "enough_data": ("跟踪时长是否达标", "", "质量", "有效跟踪时长 ≥ min_tracked_time_s"),
     "warnings": ("警告", "", "质量", "数据量、帧率、体长缺失等提示"),
-    # 活跃性
-    "speed_median_moving": ("游动速度中位数（运动帧）", "m/s", "#12/#18", "仅取速度 > v_move 的步，Fu 2020 口径"),
+    #
+    "speed_median_moving": ("游动速度中位数（运动帧）", "m/s", "#12/#18", "仅取速度 > v_move 的步"),
     "speed_mean": ("平均速度（全部步）", "m/s", "#18", "总路程 / 有效步时长"),
     "ptm_pct": ("运动时间比 PTM", "%", "#13/#17", "速度 > v_move 的时长 / 有效步时长"),
     "path_length_m": ("总路程", "m", "#14", "有效步（同段、间隔 ≤ 最大间隔、未超速）长度之和"),
@@ -84,13 +84,13 @@ METRICS = {
     "freeze_count": ("冻结次数", "次", "#8", "速度持续 < v_freeze 且 ≥ freeze_min_s 的片段数"),
     "freeze_total_s": ("冻结总时长", "s", "#8", "冻结片段时长之和"),
     "freeze_pct": ("冻结时间比例", "%", "#8", "冻结总时长 / 有效步时长"),
-    # 游动回合
+    #
     "bouts_per_min": ("游动回合数", "次/min", "#20", "连续速度 > v_move 的片段数 / 有效步时长（分钟）"),
     "bout_duration_median_s": ("回合持续时间中位数", "s", "#40", "每个游动回合的时长"),
     "ibi_median_s": ("回合间隔中位数", "s", "#41", "同一连续轨迹中相邻两回合之间的静止时长"),
     "bout_displacement_median_m": ("回合净位移中位数", "m", "#42", "回合起点到终点的直线距离"),
     "bout_peak_speed_median": ("回合峰值速度中位数", "m/s", "#43", "每回合最大速度的中位数"),
-    # 空间使用
+    #
     "dist_center_mean_m": ("距缸中心平均水平距离", "m", "#46", "sqrt(x²+y²) 的时长加权均值"),
     "dist_wall_mean_m": ("距缸壁平均距离", "m", "#5", "缸半径 − 到中心距离"),
     "wall_zone_pct": ("边缘区时间比例（贴壁）", "%", "#5", "距缸壁 ≤ wall_zone_width_m 的时间比例"),
@@ -100,20 +100,20 @@ METRICS = {
     "top_third_pct": ("上 1/3 水层时间比例", "%", "#7（变体）", "z > 2×水深/3"),
     "grid_coverage_pct": ("水平网格到访比例", "%", "#16", "到访过的可进入网格数 / 可进入网格总数（网格边长 grid_cell_m）"),
     "spatial_entropy_norm": ("空间占用熵（归一化）", "", "#39", "H = −Σp·ln p，再除以 ln(可进入网格数)"),
-    "corr_dim": ("轨迹相关维数", "", "#38", "Grassberger–Procaccia 法，3D 点，Theiler 窗排除时间近邻"),
+    "corr_dim": ("轨迹相关维数", "", "#38", "相关积分法，3D 点，Theiler 窗排除时间近邻"),
     "corr_dim_r2": ("相关维数拟合 R²", "", "#38", "log C(r) 对 log r 线性拟合的决定系数"),
-    # 基地行为（饲养缸变体）
+    #
     "hb_time_pct": ("偏好区（基地）时间比例", "%", "#34（变体）", "停留时间最长的网格（边长 homebase.cell_m）内的时间比例"),
     "hb_trips": ("完整外出回合数", "次", "#34", "离开基地后再返回基地的完整片段数"),
     "hb_trips_per_min": ("外出回合频率", "次/min", "#34", "完整外出回合数 / 有效跟踪时长（分钟）"),
     "hb_trip_path_mean_m": ("单次外出平均路径长度", "m", "#35", "每个完整外出回合的路径长度均值"),
     "hb_stops_per_trip": ("每次外出停顿数", "次", "#36", "外出回合内速度 < stop_speed 且 ≥ stop_min_s 的片段数均值"),
-    # 社会
+    #
     "co_present_time_s": ("与其他鱼同时在场时长", "s", "#26", "至少还有 1 尾鱼同帧被定位的时长"),
     "nnd_median_m": ("最近邻距离中位数", "m", "#26", "每帧到最近同伴的 3D 距离"),
     "centroid_dist_mean_m": ("到群体质心平均距离", "m", "#48", "同帧 ≥ min_fish_centroid 尾鱼时，到质心（含自身）的距离均值"),
     "strength": ("加权节点强度", "", "#50", "Σ 与各同伴的接近时间比例 w_ij"),
-    "clustering_barrat": ("局部加权聚类系数（Barrat）", "", "#51", "Barrat 等 2004 公式；网络全连通（所有鱼两两接近过）时恒为 1，没有区分度；与 DirectedClustering 包的其他公式不可直接混比"),
+    "clustering_barrat": ("局部加权聚类系数（Barrat）", "", "#51", "网络全连通（所有鱼两两接近过）时恒为 1，没有区分度；与 DirectedClustering 包的其他公式不可直接混比"),
     "nn_episode_mean_s": ("最近邻片段平均持续时间", "s", "#52", "同一同伴连续保持为最近邻的时长均值"),
     "strongest_partner_share": ("最强伙伴联结占比", "", "#54", "max_j w_ij / Σ_j w_ij"),
 }
@@ -202,14 +202,14 @@ def body_length(cfg, fid):
 
 
 def point_weights(d, frame_dt, max_dt):
-    """每个点代表的时长：到同段下一点的间隔；段末或间隔过大时按 1 帧计。"""
+    """Implementation details."""
     nxt = d.groupby("segment_id", sort=False)["timestamp_ms"].shift(-1)
     dt = (nxt - d["timestamp_ms"]) / 1000.0
     return dt.where((dt > 0) & (dt <= max_dt), frame_dt).to_numpy()
 
 
 def add_steps(d, max_dt, cfg):
-    """每行记录“本点 → 同段下一点”的一步。"""
+    """Implementation details."""
     g = d.groupby("segment_id", sort=False)
     dt = (g["timestamp_ms"].shift(-1) - d["timestamp_ms"]) / 1000.0
     dx, dy, dz = (g[c].shift(-1) - d[c] for c in ("x_m", "y_m", "z_m"))
@@ -231,7 +231,7 @@ def add_steps(d, max_dt, cfg):
 
 
 def true_runs(ok, seg):
-    """连续为 True 且在同一轨迹段内的片段，返回 [(起始行, 结束行)]。"""
+    """Implementation details."""
     runs, s = [], None
     for i in range(len(ok)):
         if ok[i] and s is not None and seg[i] == seg[i - 1]:
@@ -270,7 +270,7 @@ def activity_metrics(k, cfg, fps, warn):
     vv = v[valid]
     m["speed_cv"] = float(np.std(vv) / np.mean(vv)) if len(vv) > 1 and np.mean(vv) > 0 else np.nan
 
-    # 相邻两步：转向率、加速度
+    #
     same = (seg[1:] == seg[:-1]) & valid[1:] & valid[:-1]
     mdt = (dt[1:] + dt[:-1]) / 2
     h = k["heading"].to_numpy()
@@ -282,19 +282,19 @@ def activity_metrics(k, cfg, fps, warn):
     acc = np.abs((v[1:] - v[:-1]) / mdt)
     m["accel_mean_abs"] = float(np.mean(acc[same])) if same.any() else np.nan
 
-    # 冻结
+    #
     fr = [(s, e) for s, e in true_runs(valid & (v < vz), seg) if np.nansum(dt[s:e + 1]) >= cfg["freeze_min_s"]]
     m["freeze_count"] = len(fr)
     m["freeze_total_s"] = float(sum(np.nansum(dt[s:e + 1]) for s, e in fr))
     m["freeze_pct"] = 100 * m["freeze_total_s"] / T
 
-    # 游动回合
+    #
     bouts = true_runs(moving, seg)
     m["bouts_per_min"] = len(bouts) / (T / 60)
     if bouts:
         x, y, z = (k[c].to_numpy() for c in ("x_m", "y_m", "z_m"))
         dur = [np.nansum(dt[s:e + 1]) for s, e in bouts]
-        # 回合终点 = 最后一步的下一点
+        #
         disp = [math.dist((x[s], y[s], z[s]), (x[e + 1], y[e + 1], z[e + 1])) for s, e in bouts if e + 1 < len(x)]
         peak = [np.nanmax(v[s:e + 1]) for s, e in bouts]
         m["bout_duration_median_s"] = float(np.median(dur))
@@ -390,7 +390,7 @@ def homebase_metrics(k, w, cfg, T_track):
     v, dt, step = k["speed"].to_numpy(), k["step_dt"].to_numpy(), k["step_m"].to_numpy()
     paths, stops = [], []
     for s, e in true_runs(~inside, seg):
-        # 完整外出：前一点在基地、后一点在基地、同段且中间步全部有效
+        #
         if s == 0 or e + 1 >= len(inside) or not (inside[s - 1] and inside[e + 1]):
             continue
         if seg[s - 1] != seg[s] or seg[e + 1] != seg[e]:
@@ -438,7 +438,7 @@ def social_metrics(pos, kin, ids, frame_dt, cfg):
     D[:, np.arange(n), np.arange(n)] = np.nan
     cnt = present.sum(1)
 
-    # 接近半径
+    #
     thr = np.full((n, n), sc["proximity_m"], float)
     bls = [body_length(cfg, f) for f in ids]
     for i in range(n):
@@ -503,7 +503,7 @@ def social_metrics(pos, kin, ids, frame_dt, cfg):
                 "nn_episode_freq_per_min": episodes[i, j] / (co[i, j] * frame_dt / 60),
             })
 
-    # 群体逐帧：个体间平均距离、方向一致性（极化度）
+    #
     iu = np.triu_indices(n, 1)
     with np.errstate(all="ignore"):
         iid = np.nanmean(D[:, iu[0], iu[1]], axis=1)
@@ -560,7 +560,7 @@ def fish_metrics(df_all, fid, frame_dt, t_span, cfg):
 
 
 def compute_all(df, cfg):
-    """计算全部个体、成对和群体逐帧指标；供命令行和其他分析脚本调用。"""
+    """Implementation details."""
     ids = sorted(df["fish_id"].unique())
     frame_dt = frame_interval_s(df)
     t_span = (df["timestamp_ms"].max() - df["timestamp_ms"].min()) / 1000.0 + frame_dt

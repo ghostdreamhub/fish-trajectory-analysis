@@ -121,7 +121,7 @@ class App(ctk.CTk):
         cards=ctk.CTkFrame(main,fg_color='transparent');cards.pack(fill='x')
         self.cards={}
         colors=[('#E8F6F3','#087F75'),('#EDF2FD','#4867B3'),('#EDF6FC','#2876A6'),('#F2EEFB','#7951AB')]
-        for i,(label,key,val,sub) in enumerate([('分析个体','fish','—','按鱼编号分别统计'),('轨迹点数','points','—','导入的有效坐标记录'),('指标清单','metrics','58','完整指标与出处'),('可评分个体','scorable','—','通过评分质量门槛')]):
+        for i,(label,key,val,sub) in enumerate([('分析个体','fish','—','按鱼编号分别统计'),('轨迹点数','points','—','导入的有效坐标记录'),('指标清单','metrics','58','完整指标清单'),('可评分个体','scorable','—','通过评分质量门槛')]):
             f=ctk.CTkFrame(cards,corner_radius=18,fg_color='white',border_width=1,border_color='#E4EBF2')
             f.grid(row=0,column=i,sticky='nsew',padx=(0,12 if i<3 else 0));cards.grid_columnconfigure(i,weight=1,uniform='cards')
             tag=ctk.CTkFrame(f,fg_color=colors[i][0],corner_radius=8);tag.pack(anchor='w',padx=17,pady=(17,5))
@@ -154,14 +154,14 @@ class App(ctk.CTk):
         self.fishvar=tk.StringVar();self.fishbox=ctk.CTkComboBox(bar,variable=self.fishvar,state='readonly',values=[],width=200,height=36,corner_radius=10,font=(FONT,13),command=lambda _:self.refresh_details())
         self.fishbox.pack(side='left')
         self.filtervar=tk.StringVar(value='全部指标');ctk.CTkComboBox(bar,variable=self.filtervar,state='readonly',values=['全部指标','有数值','缺少条件','参与评分'],width=140,height=36,corner_radius=10,font=(FONT,13),command=lambda _:self.refresh_details()).pack(side='left',padx=10)
-        self.label(bar,'双击查看定义与文献出处',12,MUTED).pack(side='right',padx=4)
+        self.label(bar,'双击查看指标详情',12,MUTED).pack(side='right',padx=4)
         self.detailtree=self.tree(dtab,[('id','编号',55),('name','指标名称',300),('val','数值',95),('unit','单位',80),('status','状态',100),('w','权重',65),('score','单项分',80),('reason','说明',360)])
         self.detailtree.bind('<Double-1>',self.show_metric)
         wtab=self.tabs['权重与评分'];bar=ctk.CTkFrame(wtab,fg_color='transparent');bar.pack(fill='x',padx=12,pady=(14,10))
         for text,cmd in [('编辑选中项',self.edit_weight),('恢复初始权重',self.reset_weights),('导入方案',self.load_scheme),('保存方案',self.save_scheme)]:RoundButton(bar,text,cmd).pack(side='left',padx=(0,8))
         hint=ctk.CTkFrame(wtab,corner_radius=12,fg_color='#F0F7FA');hint.pack(fill='x',padx=12,pady=(0,12))
-        self.label(hint,'默认启用 31 条，包含运动、空间和社会行为；文献支持指标定义，权重、方向和上下限为待标定初值。\n向右滚动可查看原表文献，双击指标页可查看引用和计算说明。该综合分不能直接等同于活跃度。',12,MUTED,justify='left',anchor='w',wraplength=1000).pack(fill='x',padx=14,pady=12)
-        self.weighttree=self.tree(wtab,[('id','编号',55),('name','指标',300),('w','原始权重',95),('dir','方向',75),('lo','数值下限',105),('hi','数值上限',105),('type','初始用途',160),('refs','原表文献（指标依据）',360)])
+        self.label(hint,'默认启用 31 条，包含运动、空间和社会行为；权重、方向和上下限为待标定初值。\n双击指标页可查看计算说明。该综合分不能直接等同于活跃度。',12,MUTED,justify='left',anchor='w',wraplength=1000).pack(fill='x',padx=14,pady=12)
+        self.weighttree=self.tree(wtab,[('id','编号',55),('name','指标',300),('w','原始权重',95),('dir','方向',75),('lo','数值下限',105),('hi','数值上限',105),('type','初始用途',160)])
         self.weighttree.bind('<Double-1>',lambda e:self.edit_weight());self.refresh_weights()
         plot=self.tabs['轨迹预览'];self.label(plot,'左侧：水平 X/Y 投影   /   右侧：X/Z 侧视投影。按轨迹片段分别绘制。',13,MUTED,anchor='w').pack(fill='x',padx=16,pady=(16,8))
         self.plot=tk.Canvas(plot,bg='white',highlightthickness=0);self.plot.pack(fill='both',expand=True,padx=14,pady=12);self.plot.bind('<Configure>',lambda e:self.draw_plot())
@@ -279,7 +279,7 @@ class App(ctk.CTk):
         if not sel:return
         mid=int(sel[0]);m=CATALOG['metrics'][mid-1];win=ctk.CTkToplevel(self);win.title(f'#{mid} {m["name"]}');win.geometry('820x650');win.configure(fg_color=BG)
         text=ctk.CTkTextbox(win,wrap='word',corner_radius=16,fg_color='white',text_color=INK,font=(FONT,15),spacing1=4,spacing3=8);text.pack(fill='both',expand=True,padx=18,pady=18)
-        for label,key in [('指标','name'),('维度','dimension'),('实验情境','assay'),('操作定义','definition'),('解释方向','interpretation'),('参考文献','references'),('注意事项','notes')]:text.insert('end',f'{label}\n{m[key] or "—"}\n\n')
+        for label,key in [('指标','name'),('维度','dimension'),('实验情境','assay'),('操作定义','definition'),('解释方向','interpretation'),('注意事项','notes')]:text.insert('end',f'{label}\n{m[key] or "—"}\n\n')
         if self.result:
             row=self.result['details'];row=row[(row.fish_id==self.fishvar.get())&(row.metric_id==mid)].iloc[0]
             text.insert('end',f'本次计算\n{row.status}：{fmt(row.value)} {row.unit}\n{row.reason}\n{row.notes}\n来源：{row.source}')
@@ -289,7 +289,7 @@ class App(ctk.CTk):
         self.weighttree.delete(*self.weighttree.get_children())
         for rule in self.cfg['scoring']['rules']:
             m=CATALOG['metrics'][rule['id']-1]
-            self.weighttree.insert('','end',iid=str(rule['id']),values=(rule['id'],m['name'],fmt(rule['weight']),rule['direction'],fmt(rule['low']),fmt(rule['high']),'参与评分' if rule['weight'] else '仅描述 / 未启用',m['references']))
+            self.weighttree.insert('','end',iid=str(rule['id']),values=(rule['id'],m['name'],fmt(rule['weight']),rule['direction'],fmt(rule['low']),fmt(rule['high']),'参与评分' if rule['weight'] else '仅描述 / 未启用'))
 
     def edit_weight(self):
         if self.busy:return
@@ -403,20 +403,20 @@ point_type 可为 observed、interpolated、predicted、dead。预测点默认�
 多个独立实验请提供 session_id，避免鱼编号被误当作连续身份。重复的鱼×时间记录会拒绝导入。
 
 58 条指标的含义
-58 条来自已有文献指标库，一条可能包含多个分量。自由游动轨迹可计算其中 33 条的代表值/变体；其余需要专门实验、刺激事件或人工标注。
+系统包含58条指标，一条可能包含多个分量。自由游动轨迹可计算其中 33 条的代表值/变体；其余需要专门实验、刺激事件或人工标注。
 补充实验 CSV 字段：fish_id,metric_id,value,unit,source,protocol。单位与定义须一致，source 和 protocol 必填。补充值可能覆盖轨迹代表值，并保留来源。
 
 分数解释
-默认启用31条运动、空间与社会指标。每项论文出处可在指标详情查看；文献支持指标定义，不支持本软件权重、方向及上下限。这些是可修改的工程初值，不是物种通用阈值。
+默认启用31条运动、空间与社会指标。这些是可修改的工程初值，不是物种通用阈值。
 单项分=100×clip((x−下限)/(上限−下限),0,1)，反向取100−单项分。
 总分=Σ(可用权重×单项分)/Σ可用权重。综合行为分按低、中、高分展示，不能直接解释为活跃度；分级边界也需标定。
-同一量的多个文献条目（如#13与#17）不宜重复加权。启用社会性、勇敢性或好斗性条目后，系统改称探索性综合行为分。
+同一量的多个指标条目（如#13与#17）不宜重复加权。启用社会性、勇敢性或好斗性条目后，系统改称探索性综合行为分。
 
 质量门槛
 默认有效运动时长≥30 s、有效运动步≥20、跟踪覆盖率≥50%、跳点比例≤10%、可用评分权重≥70%，且无越界坐标，才显示总分。
 研究建议有效跟踪时长初值300 s，短于该值标为谨慎使用。30 s评分门槛仅为演示性工程门槛，并不证明性格稳定。
 缺失与不可用值不补零；不规则采样下的精细运动指标不计分。社会指标须同帧同步，超出内存保护上限会保留不可用原因。
-独立重复实验与行为学验证仍需另行开展。文献支持指标定义，不支持本软件的默认权重。
+独立重复实验与行为学验证仍需另行开展。
 '''
 
 def main():

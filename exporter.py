@@ -36,7 +36,7 @@ def frame_rows(df,headers=None):
 def workbook_data(result):
     sc=result['scores'];d=result['details'];st=result['stats']
     summary=frame_rows(sc,['鱼编号','分数（0–100）','分级','评分说明','有数值的指标数','指标总数','实际参与评分项数','可用评分权重（%）','有效运动时长（s）','覆盖率（%）','质量提示'])
-    detail=frame_rows(d,['鱼编号','指标编号','指标名称','维度','数值','单位','状态','缺少条件/质量原因','原始权重','方向','数值下限','数值上限','单项分（0–100）','加权贡献（分）','来源','计算说明','参考文献'])
+    detail=frame_rows(d,['鱼编号','指标编号','指标名称','维度','数值','单位','状态','缺少条件/质量原因','原始权重','方向','数值下限','数值上限','单项分（0–100）','加权贡献（分）','来源','计算说明'])
     stats=frame_rows(st,['编号','指标名称','单位','鱼数','有数值鱼数','可用鱼数','缺失鱼数','均值','中位数','标准差','最小值','最大值'])
     # Quality exports all legacy values with explicit labels, plus added analysis fields.
     per=result['individual'].copy()
@@ -56,7 +56,7 @@ def workbook_data(result):
     cfg += [['输入SHA256',p] for p in result['input_sha256']]
     cfg += [['处理记录',p] for p in result['audit']]
     cfg += [['配置JSON',json.dumps(result['config'],ensure_ascii=False)]]
-    refs=[['编号','简称','完整引用','DOI / 链接','用途']]+CATALOG['references']
+    refs=[['项目','说明'],['指标','指标缺失和适用范围见明细']]
     return [summary,detail,stats,q,pairs,cfg,refs]
 
 def write_xlsx(path,sheets):
@@ -127,19 +127,19 @@ def write_html(path,r):
     byfish=[]
     for fid,g in r['details'].groupby('fish_id',sort=True):
         byfish.append('<details><summary>'+e(str(fid))+' · 58 条指标</summary>'+table(g,['metric_id','name','value','unit','status','weight','subscore','reason','notes'],['编号','指标','数值','单位','状态','权重','单项分','原因','说明'])+'</details>')
-    refhtml=''.join('<li>'+e(str(x[2]))+' '+e(str(x[3] or ''))+'</li>' for x in CATALOG['references'])
+
     notices=''.join('<li>'+e(str(x))+'</li>' for x in r['audit']) or '<li>未记录额外导入转换。</li>'
     text=f'''<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>鱼类轨迹分析报告</title>
 <style>body{{font:15px "Microsoft YaHei",Arial,sans-serif;color:#183446;background:#edf3f7;margin:0}}main{{max-width:1140px;margin:auto;padding:36px}}h1{{font-size:29px;margin:8px 0}}h2{{font-size:20px}}.muted{{color:#607687}}.hero,.panel{{background:white;border:1px solid #dce6eb;border-radius:14px;padding:26px;margin:20px 0}}.hero{{border-top:5px solid #008c95}}.cards{{display:flex;gap:16px;flex-wrap:wrap}}.card{{flex:1;min-width:130px;background:#f2f8f9;padding:18px;border-radius:9px}}.card strong{{display:block;font-size:30px;color:#00818a;margin:5px 0}}table{{border-collapse:collapse;width:100%;font-size:13px}}th,td{{text-align:left;padding:10px;border-bottom:1px solid #e3eaef;vertical-align:top;max-width:380px;overflow-wrap:anywhere}}th{{background:#eaf4f5;position:sticky;top:0}}.scroll{{overflow:auto;max-height:650px}}details{{margin:12px 0;border:1px solid #dce6eb;border-radius:8px;padding:14px}}summary{{cursor:pointer;font-weight:bold}}.barrow{{display:flex;gap:15px;align-items:center;margin:10px 0}}.barrow span{{width:150px;overflow-wrap:anywhere}}.track{{background:#e7eef3;height:13px;flex:1;border-radius:7px;overflow:hidden}}.track div{{height:100%;background:#008c95}}button{{background:#008c95;color:white;border:0;padding:10px 18px;border-radius:6px;cursor:pointer}}.note{{background:#fff6df;border-left:4px solid #d99a22;padding:15px;line-height:1.8}}svg{{width:100%;max-height:350px}}li{{line-height:1.8}}@media print{{body{{background:white}}main{{padding:0}}button{{display:none}}details{{break-inside:avoid}}.scroll{{max-height:none;overflow:visible}}.panel{{break-inside:auto}}th{{position:static}}}}</style>
 <main><div class="hero"><div class="muted">FISH BEHAVIOR 58 · v{VERSION}</div><h1>鱼类三维轨迹行为分析报告</h1><p class="muted">生成时间：{e(r['created'])}</p><button onclick="document.querySelectorAll('details').forEach(x=>x.open=true);window.print()">打印 / 保存为 PDF</button></div>
 <div class="cards"><div class="card">分析鱼数<strong>{len(sc)}</strong>个体编号</div><div class="card">轨迹点数<strong>{r['rows']:,}</strong>CSV 原始记录</div><div class="card">指标库<strong>58</strong>逐项记录可用性</div><div class="card">平均{e(r['score_title'])}<strong>{fmt(mean)}</strong>可评分 {len(scores)} / {len(sc)} 尾</div></div>
-<div class="panel"><h2>评分解释</h2><div class="note">当前方案：{e(r['config']['scoring']['name'])}，启用 {sum(x['weight']>0 for x in r['config']['scoring']['rules'])} 项。文献支持指标定义；权重、方向与上下限均为待标定的工程初值。运动、空间及社会指标组成的综合分不能直接解释为活跃度或稳定性格。</div><p>单项分 = 100 × clip((数值 − 下限) / (上限 − 下限), 0, 1)，反向指标取 100 − 单项分。总分 = Σ(可用权重 × 单项分) / Σ可用权重。缺失值不补零，质量门槛未通过则不评分。低、中、高分界限为工程初值，可用权重不同的个体应谨慎比较。</p>{bars}</div>
+<div class="panel"><h2>评分解释</h2><div class="note">当前方案：{e(r['config']['scoring']['name'])}，启用 {sum(x['weight']>0 for x in r['config']['scoring']['rules'])} 项。权重、方向与上下限均为待标定的工程初值。运动、空间及社会指标组成的综合分不能直接解释为活跃度或稳定性格。</div><p>单项分 = 100 × clip((数值 − 下限) / (上限 − 下限), 0, 1)，反向指标取 100 − 单项分。总分 = Σ(可用权重 × 单项分) / Σ可用权重。缺失值不补零，质量门槛未通过则不评分。低、中、高分界限为工程初值，可用权重不同的个体应谨慎比较。</p>{bars}</div>
 <div class="panel"><h2>个体评分与质量</h2>{table(sc,['fish_id','score','label','score_status','available_metrics','scored_metrics','available_weight_pct','valid_step_time_s','coverage_pct'],['鱼编号','分数','分级','说明','有数值指标数 / 58','实际计分项数','可用权重 %','有效运动时长 s','覆盖率 %'])}</div>
 <div class="panel"><h2>轨迹水平投影</h2>{trajectory_svg(r['trajectories'])}<p class="muted">最多展示前30尾鱼，每片段最多800个绘图点。完整轨迹仍保存在输入CSV中。</p></div>
 <div class="panel"><h2>58 条指标统计</h2><p>统计仅纳入有数值且未标为“不可用”的个体；谨慎使用与实验补充值保留并在明细中注明。不同实验定义的补充值需先统一口径。标准差采用样本标准差。</p>{table(r['stats'],['metric_id','name','unit','usable_count','missing_count','mean','median','std','min','max'],['编号','指标','单位','可用鱼数','缺失鱼数','均值','中位数','标准差','最小','最大'])}</div>
 <div class="panel"><h2>逐鱼指标明细</h2>{''.join(byfish)}</div>
 <div class="panel"><h2>数据来源与处理</h2><p>轨迹时间跨度：{r['span_s']:.3f} 秒；采样间隔中位数：{r['frame_dt_s']:.6f} 秒。时间来自轨迹时间列，仿真采用物理推进时间。</p><ul>{notices}</ul><p>输入文件：</p><ul>{''.join('<li>'+e(x)+'</li>' for x in r['input_files'])}</ul><p>完整参数、文件校验值、鱼对结果及原始个体特征见同目录 Excel、CSV、JSON。</p></div>
-<div class="panel"><h2>文献依据</h2><p>文献支持指标定义与实验范式；本工具的人工评分权重不来自已验证的文献量表。</p><ol>{refhtml}</ol></div></main></html>'''
+</main></html>'''
     pathlib.Path(path).write_text(text,encoding='utf-8')
 
 def export_all(result,folder,progress=lambda s:None):
