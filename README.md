@@ -1,24 +1,48 @@
-# Fish Trajectory Behavior Analysis
+# 鱼类三维轨迹行为分析与质量评估系统
 
-Windows desktop application for 3D fish trajectory analysis and quality checks. Import CSV trajectories, review 58 indicators, adjust the 31-item exploratory weighting scheme, and export analysis reports. The composite score is experimental and requires calibration for the species and recording setup.
+本软件用于导入鱼类三维轨迹，检查数据质量，计算个体和群体行为特征，并导出分析结果。软件内置 58 条指标清单，默认启用其中 31 项计算探索性综合行为分。软件支持 Windows 本地运行。
 
-## Run
+## 下载与启动
 
-Requires Windows x64 and Python 3.10.
+在仓库右侧的 **Releases** 中打开 [v1.2 发行版](https://github.com/ghostdreamhub/fish-trajectory-analysis/releases/tag/v1.2)，下载 `fish-trajectory-analysis-v1.2.exe` 并双击运行。EXE 无需另外安装 Python。
+
+## 界面使用方法
+
+1. 点击左侧 **导入轨迹 CSV**，选择一个或多个属于同一实验的轨迹文件。点击 **保存 CSV 模板** 可以获得标准模板和合成示例。
+2. 在左侧设置水槽半径、水深、体长和运动速度阈值；体长可留空。参数区域可以滚动。输入坐标格式可选择自动识别、标准三维坐标或仿真原始坐标。
+3. 点击 **开始分析**。程序检查数据并计算个体、鱼对和群体特征。
+4. 在 **结果总览** 查看鱼的数量、轨迹点数、每条鱼的分数、实际计分项数、可用权重比例及质量提示。
+5. 在 **58 项指标** 中选择鱼和筛选条件，查看指标数值、单位、状态和不可计算原因；双击指标查看详情。部分条目需要补充实验数据，不能仅由自由游动轨迹计算。
+6. 在 **权重与评分** 中双击某条指标，修改权重、方向及数值上下限；也可保存或导入 JSON 参数方案。
+7. 在 **轨迹预览** 查看水平和侧视投影；**方法与说明** 提供字段与计算规则。点击 **导出报告与 Excel**，选择保存位置，生成 HTML、Excel、CSV 和参数记录。HTML 报告可通过浏览器打印为 PDF。
+
+## 输入数据
+
+标准 CSV 至少包含 `fish_id`、`timestamp_ms`、`x_m`、`y_m`、`z_m`。时间单位为毫秒，坐标单位为米；X/Y 为水平位置，Z 为离缸底高度。也可使用秒单位的 `timestamp_s` 或 `time_s`。
+
+建议提供 `segment_id` 标识轨迹片段，使用 `point_type` 区分观测、插值和预测点。不同实验应区分 `session_id`；群体关系分析建议每次只导入同一群体实验。仿真原始格式使用 `physics_time_s`，不把程序墙钟运行时间当作轨迹推进时间。
+
+需要专门实验的指标，可通过 **补充实验指标** 导入 CSV，字段为 `fish_id,metric_id,value,unit,source,protocol`。缺失或不满足条件的指标显示原因，不按零处理。
+
+## 评分与权重说明
+
+默认方案将运动、空间及社会行为中的 31 项设置为非零权重，分别按设定上下限映射至 0–100 分，再对可用项目做加权平均。界面和报告会列出实际计分项数、可用权重及数据质量；不满足质量门槛时不输出总分。不同个体实际使用的指标不同时，分数可比性有限。
+
+本项目在指标设计阶段参考了鱼类行为相关文献，并使用过仿真轨迹进行程序功能测试。**目前权重、方向和上下限是人工设定的初始值，尚无充分记录证明它们已经通过大量仿真轨迹拟合或独立实验验证。**因此所得结果属于探索性综合行为分，不能直接解释为纯活跃度、健康程度或稳定性格。后续应针对鱼种、实验条件及实测数据标定，并检验重复性。
+
+## 源码运行与测试
+
+建议使用 Windows x64 与 Python 3.10：
 
 ```powershell
 python -m pip install -r requirements.txt
 python app.py
 ```
 
-Required CSV columns: `fish_id`, `timestamp_ms`, `x_m`, `y_m`, `z_m`. Sample templates can be saved from the application.
-
-## Test and build
+运行测试与重新打包：
 
 ```powershell
 python -m pip install -r requirements-dev.txt
 python -m unittest discover -p test_analysis.py -v
 ./build.ps1
 ```
-
-The Windows executable is available in Releases.
